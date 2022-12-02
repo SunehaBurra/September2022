@@ -1,4 +1,5 @@
-﻿using Mars_Project.Utilities;
+﻿using Mars_Project.Drivers;
+using Mars_Project.Utilities;
 using OpenQA.Selenium.DevTools.V105.Target;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,13 @@ using TechTalk.SpecFlow;
 namespace Mars_Project.Hooks
 {
     [Binding]
-    public sealed class Driver : CommonDriver
+    public sealed class Hooks1 : Driver
     { 
 
         [BeforeScenario]
         public void Setup()
-        {
-            //launch the browser
+        { 
+           //launch the browser
             Initialize();
 
         }
@@ -23,7 +24,7 @@ namespace Mars_Project.Hooks
         [AfterScenario]
         public void TearDown()
         {
-            CloseTestRun();
+            Close();
         }
     }
 }             

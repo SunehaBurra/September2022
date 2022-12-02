@@ -8,13 +8,15 @@ using System.Text;
 using NUnit.Framework;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
+using Mars_Project.Drivers;
 
 namespace Mars_Project.Pages
 {
-    public class LoginPage
+    public class LoginPage : Driver
     {
      
-        public void Loginsteps(IWebDriver driver)
+        //Method to login QAMars project
+        public void Loginsteps()
         {
             driver.Navigate().GoToUrl("http://localhost:5000/Home");
             driver.Manage().Window.Maximize();
@@ -25,12 +27,12 @@ namespace Mars_Project.Pages
             IWebElement SignIn = driver.FindElement(By.XPath("//*[@id='home']/div/div/div[1]/div/a"));
             SignIn.Click();
 
-            //Adding username//
+            //Adding username TextBox//
             IWebElement UsernameTextBox = driver.FindElement(By.Name("email"));
             UsernameTextBox.SendKeys("sonysuneha@gmail.com");
             
 
-            //Adding Password
+            //Adding Password TextBox//
             IWebElement PasswordField = driver.FindElement(By.Name("password"));
             PasswordField.Clear();
             PasswordField.SendKeys("Sunehareddy17");

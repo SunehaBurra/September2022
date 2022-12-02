@@ -1,4 +1,5 @@
-﻿using Mars_Project.Utilities;
+﻿using Mars_Project.Drivers;
+using Mars_Project.Utilities;
 using Microsoft.VisualBasic.FileIO;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -13,9 +14,10 @@ using System.Threading.Tasks;
 
 namespace Mars_Project.Pages
 {
-    public class ProfilePage 
+    public class ProfilePage : Driver
     {
-        public void AddName(IWebDriver driver)
+        //Method for Identifying firstname and last name ,and delete if any pre existing data is there.
+        public void AddName()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
             IWebElement DropdownIcon = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[1]/i")));
@@ -31,21 +33,23 @@ namespace Mars_Project.Pages
 
             IWebElement saveButton = driver.FindElement(By.XPath("//*[@id=\'account-profile-section\']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/button"));
             saveButton.Click();
-           
-            
+
+
         }
 
         //Method to verify if the given name details are visible on profile page
-        public void GetName(IWebDriver driver)
+        public void GetName()
         {
+            Thread.Sleep(200);
             IWebElement Title = driver.FindElement(By.ClassName("title"));
+            //return Title.Text;
             Assert.That(Title.Text == "Suneha Burra", "Name has not been added");
-         
+
         }
 
 
         //Adding Availability to the profile page
-        public void AddAvailability(IWebDriver driver)
+        public void AddAvailability()
         {
             Thread.Sleep(1000);
             IWebElement availabilityIcon = driver.FindElement(By.XPath("//*[@id=\'account-profile-section\']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/i"));
@@ -58,15 +62,17 @@ namespace Mars_Project.Pages
             SelectFullTime.Click();
         }
 
-        public string GetAvailabilityType(IWebDriver driver)
+        //Method to check given Availability has added or not.
+
+        public string GetAvailabilityType()
         {
             Thread.Sleep(500);
             IWebElement UpdatedAvail = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span"));
             return UpdatedAvail.Text;
-            
+
         }
         //Adding hours to profile page
-        public void AddHours(IWebDriver driver)
+        public void AddHours()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             IWebElement SelectHours = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/span/i")));
@@ -80,7 +86,7 @@ namespace Mars_Project.Pages
         }
 
         //checking hours added to profile page or not
-        public string GetHours(IWebDriver driver)
+        public string GetHours()
         {
             IWebElement NewHours = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span"));
             return NewHours.Text;
@@ -88,12 +94,12 @@ namespace Mars_Project.Pages
         }
 
         //Adding Description to the TextBox in profile page.
-        public void AddDescription(IWebDriver driver)
-        { 
+        public void AddDescription()
+        {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             IWebElement DescriptionIcon = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/div/div/div/h3/span/i")));
             DescriptionIcon.Click();
-            
+
 
             IWebElement AddText = driver.FindElement(By.Name("value"));
             AddText.Click();
@@ -104,8 +110,8 @@ namespace Mars_Project.Pages
             AddSaveButton.Click();
         }
 
-        //Checking description has added or not
-        public void GetDescription(IWebDriver driver)
+        //Method for Checking description has added or not
+        public void GetDescription()
         {
             Thread.Sleep(500);
             IWebElement Description = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/div/div/div/span"));
@@ -113,8 +119,8 @@ namespace Mars_Project.Pages
 
         }
 
-        //Adding Language
-        public void AddLanguage(IWebDriver driver)
+        //Adding Language 
+        public void AddLanguage()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             IWebElement LanguageTab = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[1]")));
@@ -140,7 +146,9 @@ namespace Mars_Project.Pages
             AddButton.Click();
             Thread.Sleep(1000);
         }
-        public void GetLanguage(IWebDriver driver)
+
+        //Method to check given language details are added or not.
+        public void GetLanguage()
         {
             Thread.Sleep(500);
 
@@ -150,9 +158,9 @@ namespace Mars_Project.Pages
             Assert.That(LanguageLevel.Text == "Basic", "Languagelevel has not added");
         }
 
-        //Adding skills
+        //Method for Adding skills in Profile page
 
-        public void AddSkills(IWebDriver driver)
+        public void AddSkills()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             IWebElement SkillTab = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]")));
@@ -162,7 +170,7 @@ namespace Mars_Project.Pages
             AddNewButton.Click();
 
             IWebElement AddSkillTextBox = driver.FindElement(By.Name("name"));
-            
+
             AddSkillTextBox.SendKeys("Automation Testing");
 
             IWebElement ChooseSkillDropdown = driver.FindElement(By.Name("level"));
@@ -176,8 +184,8 @@ namespace Mars_Project.Pages
             AddButton.Click();
             Thread.Sleep(500);
         }
-        //Checking new skill is added or not
-        public void GetSkill(IWebDriver driver)
+        //Method for Checking given skill details is added or not
+        public void GetSkill()
         {
             IWebElement newSkill = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[1]"));
             IWebElement SkillLevel = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[2]"));
@@ -186,7 +194,7 @@ namespace Mars_Project.Pages
         }
 
         //Adding Certification details to profile page
-        public void AddCertifications(IWebDriver driver)
+        public void AddCertifications(string Certificate, string Institute, string Year)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
             IWebElement CTFTab = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]")));
@@ -197,49 +205,116 @@ namespace Mars_Project.Pages
             addNew.Click();
 
             IWebElement EnterCertification = driver.FindElement(By.Name("certificationName"));
-            EnterCertification.SendKeys("Test Analyst");
+            EnterCertification.SendKeys(Certificate);
             Thread.Sleep(1000);
 
             IWebElement CertificationFrom = driver.FindElement(By.Name("certificationFrom"));
-            CertificationFrom.SendKeys("MVP Studio");
+            CertificationFrom.SendKeys(Institute);
             Thread.Sleep(100);
 
             IWebElement SelectYearDropdown = driver.FindElement(By.Name("certificationYear"));
             SelectYearDropdown.Click();
 
-            IWebElement SelectYearFromOptions = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[2]/div[2]/select/option[2]"));
-           
-            SelectYearFromOptions.Click();
+            SelectElement SelectYearFromOptions = new SelectElement(driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[2]/div[2]/select/option[2]"));
+
+            SelectYearFromOptions.SelectByValue(Year);
 
             IWebElement ClickAddButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[3]/input[1]"));
             ClickAddButton.Click();
         }
 
         //Checking the skill is added in profile page or not
-        public void GetCertificationDetails(IWebDriver driver)
+        public void GetCertificationDetails(string Certificate, String Institute, string Year)
         {
             Thread.Sleep(500);
             IWebElement CheckAwards = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[1]"));
-            Assert.That(CheckAwards.Text == "Test Analyst", "Certification is not added");
+            Assert.That(CheckAwards.Text == Certificate, "Certification is not added");
 
             IWebElement CheckAwardsFrom = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[2]"));
-             Assert.That(CheckAwardsFrom.Text == "MVP Studio", "data has not added");
+            Assert.That(CheckAwardsFrom.Text == Institute, "data has not added");
 
             IWebElement CheckYear = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[3]"));
-            Assert.That(CheckYear.Text == "2022", "year has not added");
+            Assert.That(CheckYear.Text == Year, "year has not added");
 
         }
+    }
+}
+
+        //Adding Education Details to profile page
+//        public void AddEducation(string Country, string institute, string degree, string title, string year)
+//        {
+//            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(40));
+//            IWebElement EducationTab = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]")));
+//            EducationTab.Click();
+//            TurnOnWait();
+
+//            IWebElement AddNewButton = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/thead/tr/th[6]/div"));
+//            TurnOnWait();
+//            AddNewButton.Click();
+
+//            SelectElement ChooseCountry = new SelectElement(driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[1]/div[2]/select")));
+//6           ChooseCountry.SelectByValue("Country");
+//            driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[1]/div[2]/select/option[66]")).Click();
+
+//            IWebElement InstituteName = driver.FindElement(By.Name("instituteName"));
+//            InstituteName.SendKeys(institute);
+
+//            IWebElement ChooseTitle = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[2]/div[1]/select"));
+//            ChooseTitle.Click();
+//            driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[2]/div[1]/select/option[7]")).Click();
+
+//            IWebElement DegreeTextBox = driver.FindElement(By.Name("degree"));
+//            DegreeTextBox.SendKeys("degree");
+
+//            IWebElement YearDropDown = driver.FindElement(By.Name("yearOfGraduation"));
+//            YearDropDown.Click();
+//            Thread.Sleep(400);
+
+//            SelectElement SelectYear = new SelectElement(driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[2]/div[3]/select/option[8]")));
+//            SelectYear.SelectByValue(year);
+
+//            IWebElement AddDetails = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[3]/div/input[1]"));
+//            AddDetails.Click();
+//        }
+
+//        //Method to check given details are added to Education Field//
+//         public void GetEducation(string Country, string institute, string title, string degree, string year)
+//        {
+//            TurnOnWait();
+            
+//            IWebElement CountryName = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[1]"));
+//            IWebElement Institute = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[2]"));
+//            IWebElement TitleBox = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[3]"));
+//            IWebElement DegreeName = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[4]"));
+//            IWebElement Year = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[5]"));
+
+//            Assert.That(CountryName.Text == Country, "countryname has not been added");
+//            Assert.That(Institute.Text == institute, "college name has not added");
+//            Assert.That(TitleBox.Text == title, "title has not added to page");
+//            Assert.That(DegreeName.Text == degree, "Degree has not added");
+//            Assert.That(Year.Text == year, "year has not added");
+
+//        }
 
 
 
-        }
 
 
 
 
 
-            }
-    
+
+        
+
+
+
+        
+
+
+
+
+
+        
 
 
 

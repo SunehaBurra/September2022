@@ -11,31 +11,9 @@ namespace Mars_Project.Utilities
 {
     public class CommonDriver
     {
-      
-        public static IWebDriver driver { get; set; }
+        public IWebDriver driver = new ChromeDriver();
 
-    
-    public void Initialize()
-    {
-
-        //Defining the browser
-        driver = new ChromeDriver();
-
-       
     }
-
-
-          //Implicit Wait
-        public static void UseWait()
-     {
-    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-
-      }
-
-             //Close the browser
-          public void CloseTestRun()
-     {
-            driver.Quit();
-     }
 }
-}
+        
+        
