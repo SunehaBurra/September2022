@@ -35,16 +35,10 @@ namespace CompetitionTask1.Pages
         //[CacheLookup]
         public IWebElement loginButton { get; set; }
 
-        public void LoginSteps(IWebDriver driver)
+        public void LoginSteps()
         {
                         
             PageFactory.InitElements(driver, this);
-           
-               //  ExcelReader.ReadDataTable(stream, "Login");                           
-               // signInbutton.Click();
-               // usernameTextbox.SendKeys(ExcelReader.ReadData(1, "UserName"));
-               // passwordTextbox.SendKeys(ExcelReader.ReadData(1, "Password"));
-               // loginButton.Click();
            
              signInbutton.Click();
              usernameTextbox.SendKeys(LoginCredentials.String1);

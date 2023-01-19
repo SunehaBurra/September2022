@@ -11,7 +11,7 @@ using SeleniumExtras.PageObjects;
 
 namespace CompetitionTask1.Pages
 {
-    public class ProfilePage 
+    public class ProfilePage : CommonDriver 
     {
         [FindsBy(How = How.LinkText, Using = "Share Skill")]
         public IWebElement shareSkillbutton { get; set; }
@@ -19,13 +19,13 @@ namespace CompetitionTask1.Pages
         [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Manage Listings')]")]
         public IWebElement manageListingsbutton { get; set; }
 
-        public void GoToShareSkillPage(IWebDriver driver)
+        public void GoToShareSkillPage()
         {
             PageFactory.InitElements(driver, this);
             shareSkillbutton.Click();
             CommonDriver.UseWait();
         }
-        public void GoToManageListingsPage(IWebDriver driver)
+        public void GoToManageListingsPage()
         {
             PageFactory.InitElements(driver, this);
             manageListingsbutton.Click();

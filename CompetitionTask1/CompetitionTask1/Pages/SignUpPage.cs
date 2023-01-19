@@ -37,7 +37,7 @@ namespace CompetitionTask1.Pages
 
             [FindsBy(How = How.XPath, Using = "//*[@id=\"submit-btn\"]")]
             public IWebElement submitButton { get; set; }
-         public void SignUpSteps(IWebDriver driver)
+         public void SignUpSteps()
          {
             PageFactory.InitElements(driver, this);
             
