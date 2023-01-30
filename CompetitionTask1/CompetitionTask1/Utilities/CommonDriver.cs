@@ -18,7 +18,7 @@ namespace CompetitionTask1.Utilities
 {
     public class CommonDriver
     {
-        
+
         public static IWebDriver driver;
         public static ExtentReports extentreportObj;
         public static ExtentHtmlReporter htmlReporter;
@@ -44,12 +44,12 @@ namespace CompetitionTask1.Utilities
             if (LoginCredentials.String1 == "sonysuneha@gmail.com")
             {
                   LoginPage loginpageObj = new LoginPage();
-                  loginpageObj.LoginSteps(driver);
+                  loginpageObj.LoginSteps();
             }
             else
             {
                   SignUpPage signuppageObj = new SignUpPage();
-                  signuppageObj.SignUpSteps(driver);
+                  signuppageObj.SignUpSteps();
             }
 
             string fileName = @"C:\Users\RAM REDDY\First Project2022\September2022\CompetitionTask1\CompetitionTask1\ExternalFiles\ShareSkills_TestData.xlsx";
@@ -70,8 +70,8 @@ namespace CompetitionTask1.Utilities
 
             public void CloseTestRun()
             {
-                extentreportObj.Flush();
-                driver.Quit();
+            extentreportObj.Flush();
+            driver.Quit();
             }
         }
     }
